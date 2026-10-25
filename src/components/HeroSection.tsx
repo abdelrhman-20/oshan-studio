@@ -16,7 +16,7 @@ export function HeroSection() {
   const ArrowIcon = dir === 'rtl' ? ArrowLeft : ArrowRight
 
   return (
-    <section id="home" className="relative flex min-h-[100svh] flex-col overflow-hidden bg-forest-950">
+    <section id="home" className="relative flex min-h-[102svh] flex-col overflow-hidden bg-forest-950">
       {/* Background image */}
       <div className="absolute inset-0">
         <motion.div
@@ -47,8 +47,7 @@ export function HeroSection() {
               'linear-gradient(90deg, rgba(10,18,14,0) 0%, rgba(10,18,14,0.04) 20%, rgba(10,18,14,0.14) 36%, rgba(10,18,14,0.36) 50%, rgba(10,18,14,0.62) 64%, rgba(10,18,14,0.84) 78%, rgba(10,18,14,0.94) 100%)',
           }}
         />
-        {/* Bottom vignette for the info bar */}
-        <div className="absolute inset-x-0 bottom-0 h-48 bg-gradient-to-t from-forest-950 to-transparent" />
+        {/* Bottom blend into the info bar lives in HeroInfoBar so it can end exactly at the bar's colour. */}
       </div>
 
       {/* Content */}

@@ -51,15 +51,19 @@ export interface TranslationShape {
   }
   projects: {
     eyebrow: string
-    heading: string
+    headingAccent: string
+    headingRest: string
+    supporting: string
     viewAll: string
-    filters: { all: string; cafes: string; retail: string; residential: string }
-    items: { name: string; category: string }[]
+    viewProject: string
+    items: { name: string; category: string; location: string }[]
   }
   services: {
     eyebrow: string
     heading: string
     supporting: string
+    panelTagline: string
+    description: string
     items: { title: string; description: string }[]
   }
   process: {
@@ -82,6 +86,15 @@ export interface TranslationShape {
     rights: string
     terms: string
     privacy: string
+    newsletterEyebrow: string
+    newsletterHeading: string
+    newsletterText: string
+    emailPlaceholder: string
+    emailLabel: string
+    subscribe: string
+    emailInvalid: string
+    newsletterUnavailable: string
+    backToTop: string
   }
 }
 
@@ -112,7 +125,7 @@ export const translations: Record<Language, TranslationShape> = {
       infoBar: {
         location: {
           title: 'الرياض، المملكة العربية السعودية',
-          subtitle: 'مقرنا',
+          subtitle: 'مقرنا الرئيسي',
         },
         process: {
           title: 'تصميم وتنفيذ متكامل',
@@ -151,24 +164,25 @@ export const translations: Record<Language, TranslationShape> = {
     },
     projects: {
       eyebrow: 'OUR PROJECTS',
-      heading: 'مشاريعنا',
+      headingAccent: 'مشاريعنا',
+      headingRest: 'تعكس رؤيتنا',
+      supporting:
+        'كل مشروع نعمل عليه هو قصة جديدة من الإبداع، تجمع فيها بين التصميم المبتكر والتنفيذ المتقن لنقدم مساحات استثنائية تعكس هوية عملائنا.',
       viewAll: 'عرض جميع المشاريع',
-      filters: {
-        all: 'الكل',
-        cafes: 'المقاهي والمطاعم',
-        retail: 'المتاجر التجارية',
-        residential: 'المساحات السكنية',
-      },
+      viewProject: 'عرض المشروع',
       items: [
-        { name: 'قهوة إيرا', category: 'مقاهي ومطاعم' },
-        { name: 'قيراط', category: 'متاجر تجارية' },
-        { name: 'بروز للتطوير العقاري', category: 'مساحات سكنية' },
+        { name: 'ERA Coffee', category: 'مطاعم ومقاهي', location: 'الرياض، المملكة العربية السعودية' },
+        { name: 'Qirat', category: 'مطاعم ومقاهي', location: 'الرياض، المملكة العربية السعودية' },
+        { name: 'Brooz Real Estate', category: 'مكاتب ومساحات تجارية', location: 'الرياض، المملكة العربية السعودية' },
       ],
     },
     services: {
       eyebrow: 'OUR SERVICES',
       heading: 'خدماتنا',
       supporting: 'حلول متكاملة للمكان',
+      panelTagline: 'SPACES THAT INSPIRE',
+      description:
+        'نقدم مجموعة متكاملة من الخدمات التي تغطي جميع مراحل المشروع، من الفكرة وحتى التسليم، لنحوّل رؤيتك إلى مساحات استثنائية تعكس هويتك.',
       items: [
         {
           title: 'التصميم الداخلي',
@@ -222,6 +236,15 @@ export const translations: Record<Language, TranslationShape> = {
       rights: 'جميع الحقوق محفوظة',
       terms: 'الشروط والأحكام',
       privacy: 'سياسة الخصوصية',
+      newsletterEyebrow: "LET'S STAY IN TOUCH",
+      newsletterHeading: 'ابقَ على تواصل معنا',
+      newsletterText: 'اشترك ليصلك آخر مشاريعنا وأفكار التصميم والمستجدات من OSHAN STUDIO.',
+      emailPlaceholder: 'أدخل بريدك الإلكتروني',
+      emailLabel: 'البريد الإلكتروني',
+      subscribe: 'اشترك',
+      emailInvalid: 'يرجى إدخال بريد إلكتروني صحيح.',
+      newsletterUnavailable: 'خدمة الاشتراك غير مفعّلة بعد. شكرًا لاهتمامك.',
+      backToTop: 'العودة إلى الأعلى',
     },
   },
   en: {
@@ -289,24 +312,25 @@ export const translations: Record<Language, TranslationShape> = {
     },
     projects: {
       eyebrow: 'OUR PROJECTS',
-      heading: 'Our Projects',
+      headingAccent: 'Our Projects',
+      headingRest: 'Reflect Our Vision',
+      supporting:
+        'Every project we take on is a new story of creativity, combining innovative design with meticulous execution to deliver exceptional spaces that reflect our clients’ identity.',
       viewAll: 'View All Projects',
-      filters: {
-        all: 'All',
-        cafes: 'Cafés & Restaurants',
-        retail: 'Commercial Retail',
-        residential: 'Residential Spaces',
-      },
+      viewProject: 'View project',
       items: [
-        { name: 'Era Coffee', category: 'Cafés & Restaurants' },
-        { name: 'Qirat', category: 'Commercial Retail' },
-        { name: 'Brooz Real Estate', category: 'Residential Spaces' },
+        { name: 'ERA Coffee', category: 'Restaurants & Cafés', location: 'Riyadh, Saudi Arabia' },
+        { name: 'Qirat', category: 'Restaurants & Cafés', location: 'Riyadh, Saudi Arabia' },
+        { name: 'Brooz Real Estate', category: 'Offices & Commercial Spaces', location: 'Riyadh, Saudi Arabia' },
       ],
     },
     services: {
       eyebrow: 'OUR SERVICES',
       heading: 'Our Services',
       supporting: 'Integrated solutions for every space',
+      panelTagline: 'SPACES THAT INSPIRE',
+      description:
+        'We offer an integrated range of services covering every stage of the project, from concept to handover, turning your vision into exceptional spaces that reflect your identity.',
       items: [
         {
           title: 'Interior Design',
@@ -360,6 +384,15 @@ export const translations: Record<Language, TranslationShape> = {
       rights: 'All Rights Reserved',
       terms: 'Terms & Conditions',
       privacy: 'Privacy Policy',
+      newsletterEyebrow: "LET'S STAY IN TOUCH",
+      newsletterHeading: 'Stay in Touch',
+      newsletterText: 'Subscribe to receive our latest projects, design ideas, and updates from OSHAN STUDIO.',
+      emailPlaceholder: 'Enter your email address',
+      emailLabel: 'Email address',
+      subscribe: 'Subscribe',
+      emailInvalid: 'Please enter a valid email address.',
+      newsletterUnavailable: 'Newsletter signup is not live yet. Thank you for your interest.',
+      backToTop: 'Back to top',
     },
   },
 }

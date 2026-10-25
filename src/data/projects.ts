@@ -1,41 +1,41 @@
 import { stockImages } from './stockImages'
 
 /**
- * Project media status: each card below uses a distinct, licensed Unsplash
+ * Project media status: each card below uses a distinct, licensed stock
  * demo photo (see stockImages.ts) — illustrative only, NOT a real OSHAN
- * STUDIO project photograph. No video asset is available for any project,
- * so no play indicator is shown.
+ * STUDIO project photograph.
  *
  * TODO(assets): replace `image` below with real OSHAN STUDIO project media
- * per slug once supplied, and add `video` where a real clip exists.
+ * per slug once supplied.
+ * TODO(routes): set `href` per project once a project details page exists;
+ * the cards render as plain (non-link) items until then.
  */
-export type ProjectCategoryKey = 'cafes' | 'retail' | 'residential'
-
 export interface ProjectEntry {
   slug: string
-  categoryKey: ProjectCategoryKey
   image: string
-  video?: string
+  /** CSS object-position for the card photo. */
+  focal: string
+  href?: string
   placeholder: boolean
 }
 
 export const projects: ProjectEntry[] = [
   {
     slug: 'era-coffee',
-    categoryKey: 'cafes',
     image: stockImages.projectEraCoffee.src,
+    focal: '50% 62%',
     placeholder: true,
   },
   {
     slug: 'qirat',
-    categoryKey: 'retail',
     image: stockImages.projectQirat.src,
+    focal: '64% 50%',
     placeholder: true,
   },
   {
     slug: 'brooz-real-estate',
-    categoryKey: 'residential',
     image: stockImages.projectBrooz.src,
+    focal: '38% 50%',
     placeholder: true,
   },
 ]

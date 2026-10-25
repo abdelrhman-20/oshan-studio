@@ -2,7 +2,6 @@ import { motion } from 'framer-motion'
 import { ArrowLeft, ArrowRight } from 'lucide-react'
 import { useLanguage } from '../i18n/LanguageContext'
 import { useReducedMotion } from '../hooks/useReducedMotion'
-import { stockImages } from '../data/stockImages'
 
 const EASE = [0.16, 1, 0.3, 1] as const
 
@@ -12,16 +11,7 @@ export function CTASection() {
   const ArrowIcon = dir === 'rtl' ? ArrowLeft : ArrowRight
 
   return (
-    <section id="contact" className="relative overflow-hidden py-28 sm:py-32 lg:py-40">
-      <div className="absolute inset-0" aria-hidden="true">
-        <div
-          className="absolute inset-0 bg-cover bg-no-repeat"
-          style={{ backgroundImage: `url(${stockImages.ctaBg.src})`, backgroundPosition: 'center 38%' }}
-        />
-        <div className="absolute inset-0 bg-forest-950/80" />
-        <div className="absolute inset-0 bg-gradient-to-t from-forest-950 via-forest-950/60 to-forest-950/50" />
-      </div>
-
+    <section id="contact" className="relative py-28 sm:py-32 lg:py-40">
       <div className="relative mx-auto max-w-3xl px-5 text-center sm:px-8">
         <motion.h2
           initial={reducedMotion ? false : { opacity: 0, y: 16 }}
