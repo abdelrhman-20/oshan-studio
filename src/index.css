@@ -1,0 +1,78 @@
+@import 'tailwindcss';
+
+@theme {
+  --font-arabic: 'IBM Plex Sans Arabic', 'Segoe UI', sans-serif;
+  --font-serif: 'Cormorant Garamond', 'Times New Roman', serif;
+  --font-latin: 'Jost', 'Segoe UI', sans-serif;
+
+  --color-forest-950: #0a120e;
+  --color-forest-900: #0f1b14;
+  --color-forest-800: #16261d;
+  --color-forest-700: #1f3327;
+  --color-forest-600: #2b4636;
+  --color-cream-100: #faf7f0;
+  --color-cream-200: #f1ead9;
+  --color-cream-300: #e3d6bd;
+  --color-bronze-300: #e3b17f;
+  --color-bronze-400: #cd9b63;
+  --color-bronze-500: #b98650;
+  --color-bronze-600: #9c6f41;
+
+  --animate-fade-up: fade-up 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  --animate-hero-zoom: hero-zoom 16s ease-out forwards;
+
+  @keyframes fade-up {
+    from {
+      opacity: 0;
+      transform: translateY(18px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  @keyframes hero-zoom {
+    from {
+      transform: scale(1.08);
+    }
+    to {
+      transform: scale(1);
+    }
+  }
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-forest-950 text-cream-200 antialiased;
+    font-family: var(--font-arabic);
+  }
+
+  html[dir='ltr'] body {
+    font-family: var(--font-latin);
+  }
+
+  html[dir='rtl'] .font-latin-force {
+    direction: ltr;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
