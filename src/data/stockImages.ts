@@ -5,13 +5,11 @@ import serviceDrawings from '../assets/images/service-drawings.jpg'
 import serviceFitout from '../assets/images/service-fitout.jpg'
 import serviceFurniture from '../assets/images/service-furniture.jpg'
 import serviceManagement from '../assets/images/service-management.jpg'
-import servicesPanel from '../assets/images/services-panel.jpg'
 import aboutMain from '../assets/images/about-main.jpg'
 import aboutDetail from '../assets/images/about-detail.jpg'
 import projectEraCoffee from '../assets/images/project-era-coffee.jpg'
-import projectQirat from '../assets/images/project-qirat.jpg'
-import projectBrooz from '../assets/images/project-brooz.jpg'
-import processBg from '../assets/images/process-architectural-bg.jpg'
+import projectQirat from '../assets/images/project-qirat-storefront.jpg'
+import projectBrwaz from '../assets/images/project-brwaz.jpg'
 import statsBg from '../assets/images/stats-bg.jpg'
 
 /**
@@ -22,8 +20,9 @@ import statsBg from '../assets/images/stats-bg.jpg'
  * supplies real project assets, at which point only this file needs to
  * change; no component should need editing.
  *
- * Each entry is used in exactly one place on the homepage — see the
- * `usage` note — so no image repeats across sections or project cards.
+ * Each entry is used in one place on the homepage — see the `usage`
+ * note — except the real Qirat and Brwaz project media, which the About
+ * section reuses on purpose.
  */
 export const stockImages = {
   aboutMain: {
@@ -43,18 +42,13 @@ export const stockImages = {
   },
   projectQirat: {
     src: projectQirat,
-    sourceId: 'pexels:39472550',
-    usage: 'Projects section — Qirat card (upscale restaurant dining room, brass chandeliers, coffered ceiling)',
-  },
-  projectBrooz: {
-    src: projectBrooz,
-    sourceId: 'pexels:34823913',
-    usage: 'Projects section — Brooz Real Estate card (modern office reception, oak panelling, glass-partitioned meeting room)',
-  },
-  processBg: {
-    src: processBg,
     sourceId: 'user-supplied',
-    usage: 'Process section — background (dark blueprint with material samples; user-supplied reference asset)',
+    usage: 'Projects section — Qirat card (Qirat oud boutique storefront at night; real project photo, user-supplied)',
+  },
+  projectBrwaz: {
+    src: projectBrwaz,
+    sourceId: 'user-supplied',
+    usage: 'Projects section — Brwaz Real Estate card (living room with ring pendant, olive armchairs, oak coffee table; real project render, user-supplied)',
   },
   statsBg: {
     src: statsBg,
@@ -90,11 +84,6 @@ export const stockImages = {
     src: serviceManagement,
     sourceId: 'pexels:8482865',
     usage: 'Services card 06 — Project Management (site team reviewing plans)',
-  },
-  servicesPanel: {
-    src: servicesPanel,
-    sourceId: 'pexels:20337840',
-    usage: 'Services section — left image panel (warm loft living space)',
   },
   closingBg: {
     src: closingBg,

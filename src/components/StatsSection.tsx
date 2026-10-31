@@ -1,152 +1,159 @@
 import { motion } from 'framer-motion'
-import { ArrowLeft, ArrowRight } from 'lucide-react'
+import type { MouseEvent } from 'react'
 import { useLanguage } from '../i18n/LanguageContext'
 import { useReducedMotion } from '../hooks/useReducedMotion'
 import { statIcons } from '../data/stats'
-import { stockImages } from '../data/stockImages'
 import { CountUpValue } from './CountUpValue'
 
 const EASE = [0.16, 1, 0.3, 1] as const
 
+// Feeds the cursor position to the card's spotlight gradient via CSS variables.
+function trackSpotlight(e: MouseEvent<HTMLDivElement>) {
+  const rect = e.currentTarget.getBoundingClientRect()
+  e.currentTarget.style.setProperty('--x', `${e.clientX - rect.left}px`)
+  e.currentTarget.style.setProperty('--y', `${e.clientY - rect.top}px`)
+}
+
 export function StatsSection() {
   const { t, dir } = useLanguage()
   const reducedMotion = useReducedMotion()
-  const ArrowIcon = dir === 'rtl' ? ArrowLeft : ArrowRight
 
   const [headingLead, ...headingRestWords] = t.stats.heading.split(' ')
   const headingRest = headingRestWords.join(' ')
 
-  return (
-    <section className="relative overflow-hidden bg-forest-950">
-      {/*
-        dir="ltr" keeps the composition fixed — architectural image
-        physically left, content panel physically right — in both
-        languages, matching this section's mirrored layout. Content
-        alignment/text below stays language-aware via `dir`.
-      */}
-      <div dir="ltr" className="mx-auto grid max-w-[1680px] grid-cols-1 lg:grid-cols-[minmax(0,1.2fr)_minmax(0,1fr)]">
-        {/* Content panel */}
-        <div dir={dir} className="relative z-10 order-2 flex flex-col justify-center bg-forest-950 px-5 py-16 sm:px-8 sm:py-20 lg:order-2 lg:px-12 lg:py-24">
-          <motion.div
-            dir="ltr"
-            initial={reducedMotion ? false : { opacity: 0, y: 14 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: '-80px' }}
-            transition={{ duration: 0.7, ease: EASE }}
-            className="flex items-center justify-end gap-3 font-latin text-xs font-medium tracking-[0.3em] text-bronze-400"
-          >
-            <span>{t.stats.eyebrow}</span>
-            <span className="h-px w-10 bg-bronze-400/60" aria-hidden="true" />
-          </motion.div>
+  const reveal = (delay = 0) => ({
+    initial: reducedMotion ? false : { opacity: 0, y: 24 },
+    whileInView: { opacity: 1, y: 0 },
+    viewport: { once: true, margin: '-80px' },
+    transition: { duration: 0.9, delay, ease: EASE },
+  })
 
+  return (
+    <section dir={dir} data-nav-theme="light" className="relative overflow-hidden bg-cream-100 py-20 text-forest-950 sm:py-24 lg:py-32">
+      {/* Warm ambient light and a fine dot texture that fades toward the edges */}
+      <div
+        className="pointer-events-none absolute -top-40 left-1/2 h-[34rem] w-[64rem] -translate-x-1/2 rounded-full bg-bronze-300/25 blur-[140px]"
+        aria-hidden="true"
+      />
+      <div
+        className="pointer-events-none absolute inset-0 opacity-[0.35]"
+        aria-hidden="true"
+        style={{
+          backgroundImage: 'radial-gradient(rgb(10 18 14 / 0.12) 1px, transparent 1px)',
+          backgroundSize: '22px 22px',
+          maskImage: 'radial-gradient(ellipse 65% 55% at 50% 30%, black 0%, transparent 100%)',
+          WebkitMaskImage: 'radial-gradient(ellipse 65% 55% at 50% 30%, black 0%, transparent 100%)',
+        }}
+      />
+
+      <div className="relative mx-auto max-w-[1440px] px-5 sm:px-8 lg:px-12">
+        {/* Centered header: overline, title, subtitle */}
+        <div className="mx-auto flex max-w-3xl flex-col items-center text-center">
+          <motion.div {...reveal()} className="flex items-center gap-4">
+            <span className="h-px w-10 bg-gradient-to-r from-transparent to-bronze-500" aria-hidden="true" />
+            <span dir="ltr" className="font-latin text-xs font-medium tracking-[0.35em] text-bronze-600">
+              {t.stats.eyebrow}
+            </span>
+            <span className="h-px w-10 bg-gradient-to-l from-transparent to-bronze-500" aria-hidden="true" />
+          </motion.div>
           <motion.h2
-            initial={reducedMotion ? false : { opacity: 0, y: 18 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: '-80px' }}
-            transition={{ duration: 0.8, delay: 0.1, ease: EASE }}
-            className="mt-5 text-balance text-right font-arabic text-4xl font-semibold leading-[1.25] text-cream-100 sm:text-5xl lg:text-6xl"
+            {...reveal(0.08)}
+            className="mt-6 text-balance font-display text-3xl leading-[1.4] font-semibold sm:text-4xl lg:text-5xl"
           >
-            <span className="text-bronze-400">{headingLead}</span>
+            <span className="text-bronze-600">{headingLead}</span>
             {headingRest && ' ' + headingRest}
           </motion.h2>
-
           <motion.p
-            initial={reducedMotion ? false : { opacity: 0, y: 14 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: '-80px' }}
-            transition={{ duration: 0.7, delay: 0.2, ease: EASE }}
-            className="mt-5 ml-auto max-w-sm text-balance text-right text-sm leading-relaxed text-cream-200/65 sm:text-base"
+            {...reveal(0.16)}
+            className="mt-5 max-w-xl text-balance text-base leading-[1.9] text-forest-700/70 sm:text-lg"
           >
             {t.stats.supporting}
           </motion.p>
-
-          <div
-            dir="ltr"
-            className="mt-10 grid grid-cols-2 gap-x-6 gap-y-9 sm:mt-12 sm:flex sm:flex-wrap sm:items-stretch"
-            style={{ width: '36.5em' }}
-          >
-            {t.stats.items.map((item, i) => {
-              const Icon = statIcons[i]
-              return (
-                <div key={item.label} className="flex items-stretch">
-                  {i > 0 && (
-                    <span className="hidden self-stretch sm:mx-8 sm:block sm:w-px sm:bg-bronze-400/25" aria-hidden="true" />
-                  )}
-                  <motion.div
-                    initial={reducedMotion ? false : { opacity: 0, y: 16 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true, margin: '-80px' }}
-                    transition={{ duration: 0.6, delay: 0.1 * i, ease: EASE }}
-                    className="flex flex-col items-center gap-3 text-center"
-                    dir={dir}
-                  >
-                    <span className="flex h-11 w-11 items-center justify-center rounded-t-full border-x border-t border-bronze-400/40">
-                      <Icon className="h-5 w-5 text-bronze-400" strokeWidth={1.25} aria-hidden="true" />
-                    </span>
-                    <CountUpValue
-                      value={item.value}
-                      className="font-arabic text-3xl font-semibold text-cream-100 sm:text-4xl"
-                      prefixClassName="text-bronze-400"
-                    />
-                    <p className="text-xs text-cream-200/55 sm:text-sm">{item.label}</p>
-                    <span className="bg-bronze-400/50" style={{ width: '3em', height: '0.10em' }} aria-hidden="true" />
-                  </motion.div>
-                </div>
-              )
-            })}
-          </div>
-
-          <motion.a
-            href="#work"
-            dir="ltr"
-            initial={reducedMotion ? false : { opacity: 0, y: 14 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: '-80px' }}
-            transition={{ duration: 0.7, delay: 0.5, ease: EASE }}
-            className="group ml-auto mt-12 inline-flex items-center gap-3 text-sm text-cream-200/75 transition-colors hover:text-bronze-300"
-          >
-            <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-cream-100/25 transition-colors group-hover:border-bronze-400">
-              <ArrowIcon
-                className={`h-4 w-4 text-bronze-400 transition-transform ${
-                  dir === 'rtl' ? 'group-hover:-translate-x-0.5' : 'group-hover:translate-x-0.5'
-                }`}
-                strokeWidth={1.75}
-              />
-            </span>
-            <span className="h-px w-8 bg-bronze-400/50 transition-all group-hover:w-12" aria-hidden="true" />
-            <span dir={dir}>{t.stats.cta}</span>
-          </motion.a>
         </div>
 
-        {/* Architectural image panel */}
-        <motion.div
-          initial={reducedMotion ? false : { opacity: 0, scale: 1.03 }}
-          whileInView={{ opacity: 1, scale: 1 }}
-          viewport={{ once: true, margin: '-80px' }}
-          transition={{ duration: 1, ease: EASE }}
-          className="relative order-1 h-64 overflow-hidden sm:h-80 lg:order-1 lg:h-auto lg:min-h-[32rem]"
-        >
-          <img
-            src={stockImages.statsBg.src}
-            alt={
-              dir === 'rtl'
-                ? 'تكوين معماري فاخر بإضاءة دافئة وتفاصيل برونزية — صورة توضيحية'
-                : 'A premium architectural interior with warm layered lighting and bronze details — illustrative demo photo'
-            }
-            loading="lazy"
-            className="h-full w-full object-cover"
-            style={{ objectPosition: 'center 38%' }}
-          />
-          {/* Blend the image into the dark panel on its inner edge (always right, since the panel sits right) */}
-          <div
-            className="absolute inset-y-0 right-0 w-2/3"
-            style={{
-              background:
-                'linear-gradient(270deg, rgba(10,18,14,1) 0%, rgba(10,18,14,0.75) 20%, rgba(10,18,14,0.4) 40%, rgba(10,18,14,0.12) 62%, rgba(10,18,14,0) 85%)',
-            }}
-          />
-          <div className="absolute inset-0 bg-forest-950/10" />
-        </motion.div>
+        <div className="mt-14 grid grid-cols-1 gap-4 sm:mt-16 sm:grid-cols-2 lg:mt-20 lg:grid-cols-4 lg:gap-5">
+          {t.stats.items.map((item, i) => {
+            const Icon = statIcons[i]
+            return (
+              <motion.div key={`${item.label}-${i}`} {...reveal(0.1 * i)} className="h-full">
+                <div
+                  onMouseMove={trackSpotlight}
+                  className="group relative isolate flex h-full flex-col items-center overflow-hidden border border-forest-950/[0.08] bg-white/60 px-6 pt-12 pb-10 text-center shadow-[0_1px_2px_rgb(10_18_14/0.04),0_20px_50px_-30px_rgb(10_18_14/0.25)] backdrop-blur-sm transition-[transform,box-shadow,border-color] duration-700 ease-out hover:-translate-y-1.5 hover:border-forest-950 hover:shadow-[0_40px_80px_-32px_rgb(10_18_14/0.6)] lg:px-8 lg:pt-14 lg:pb-12"
+                >
+                  {/* Forest panel that rises from the bottom on hover */}
+                  <div
+                    className="absolute inset-0 -z-10 origin-bottom scale-y-0 bg-gradient-to-b from-forest-800 to-forest-950 transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-y-100"
+                    aria-hidden="true"
+                  />
+                  {/* Cursor spotlight, only visible over the dark panel */}
+                  <div
+                    className="pointer-events-none absolute inset-0 -z-10 opacity-0 transition-opacity duration-700 group-hover:opacity-100"
+                    style={{
+                      background:
+                        'radial-gradient(260px circle at var(--x, 50%) var(--y, 50%), rgb(205 155 99 / 0.16), transparent 70%)',
+                    }}
+                    aria-hidden="true"
+                  />
+
+                  {/* Architectural corner brackets that open outward on hover */}
+                  {[
+                    'top-3 start-3 border-t border-s',
+                    'top-3 end-3 border-t border-e',
+                    'bottom-3 start-3 border-b border-s',
+                    'bottom-3 end-3 border-b border-e',
+                  ].map((pos) => (
+                    <span
+                      key={pos}
+                      className={`pointer-events-none absolute h-4 w-4 border-bronze-500/70 transition-all duration-700 ease-out group-hover:h-6 group-hover:w-6 group-hover:border-bronze-300 ${pos}`}
+                      aria-hidden="true"
+                    />
+                  ))}
+
+                  {/* Oversized ghost icon */}
+                  <Icon
+                    className="pointer-events-none absolute -bottom-8 left-1/2 -z-10 h-44 w-44 -translate-x-1/2 text-forest-950/[0.03] transition-all duration-700 ease-out group-hover:scale-110 group-hover:text-cream-100/[0.04]"
+                    strokeWidth={0.75}
+                    aria-hidden="true"
+                  />
+
+                  {/* Numbers always read left-to-right so "+7" never flips to "7+" */}
+                  <span dir="ltr" className="inline-block">
+                    <CountUpValue
+                      value={item.value}
+                      className="font-serif text-8xl leading-[0.85] tabular-nums text-forest-950 transition-colors duration-700 group-hover:text-cream-100 lg:text-[7.5rem]"
+                      prefixClassName="me-1 bg-gradient-to-b from-bronze-400 to-bronze-600 bg-clip-text text-transparent"
+                    />
+                  </span>
+
+                  <div className="mt-7 flex items-center gap-2" aria-hidden="true">
+                    <motion.span
+                      initial={reducedMotion ? false : { width: 0 }}
+                      whileInView={{ width: 24 }}
+                      viewport={{ once: true }}
+                      transition={{ duration: 0.8, delay: 0.5 + 0.1 * i, ease: EASE }}
+                      className="h-px bg-bronze-500 transition-[width] duration-700 group-hover:w-10!"
+                    />
+                    <span className="h-1.5 w-1.5 rotate-45 bg-bronze-500" />
+                    <motion.span
+                      initial={reducedMotion ? false : { width: 0 }}
+                      whileInView={{ width: 24 }}
+                      viewport={{ once: true }}
+                      transition={{ duration: 0.8, delay: 0.5 + 0.1 * i, ease: EASE }}
+                      className="h-px bg-bronze-500 transition-[width] duration-700 group-hover:w-10!"
+                    />
+                  </div>
+
+                  <h3 className="mt-6 font-display text-lg font-semibold text-forest-950 transition-colors duration-700 group-hover:text-cream-100 sm:text-xl">
+                    {item.label}
+                  </h3>
+                  <p className="mt-2 text-sm leading-relaxed text-forest-700/65 transition-colors duration-700 group-hover:text-cream-100/60">
+                    {item.description}
+                  </p>
+                </div>
+              </motion.div>
+            )
+          })}
+        </div>
       </div>
     </section>
   )

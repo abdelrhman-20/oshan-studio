@@ -5,7 +5,8 @@ import { StatsSection } from './components/StatsSection'
 import { ProjectsSection } from './components/ProjectsSection'
 import { ServicesSection } from './components/ServicesSection'
 import { ProcessSection } from './components/ProcessSection'
-import { ClosingSection } from './components/ClosingSection'
+import { CTASection } from './components/CTASection'
+import { Footer } from './components/Footer'
 import { LanguageProvider } from './i18n/LanguageContext'
 
 function App() {
@@ -13,12 +14,13 @@ function App() {
     <LanguageProvider>
       <Navbar />
       <HeroSection />
-      <AboutSection />
       <StatsSection />
       <ProjectsSection />
+      <AboutSection />
       <ServicesSection />
       <ProcessSection />
-      <ClosingSection />
+      <CTASection />
+      <Footer />
     </LanguageProvider>
   )
 }

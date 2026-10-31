@@ -11,13 +11,14 @@ export interface TranslationShape {
   cta: {
     startProject: string
     viewWork: string
-    exploreMore: string
   }
   hero: {
     eyebrow: string
     headlineLine1: string
     headlineLine2: string
     supporting: string
+    primaryCta: string
+    secondaryCta: string
     slideCounter: string
     preview: {
       name: string
@@ -35,7 +36,7 @@ export interface TranslationShape {
     headingLine2: string
     body: string
     cta: string
-    detailCaption: string
+    signature: string
     info: {
       year: { value: string; label: string }
       scope: { value: string; label: string }
@@ -47,7 +48,7 @@ export interface TranslationShape {
     heading: string
     supporting: string
     cta: string
-    items: { value: string; label: string }[]
+    items: { value: string; label: string; description: string }[]
   }
   projects: {
     eyebrow: string
@@ -56,20 +57,20 @@ export interface TranslationShape {
     supporting: string
     viewAll: string
     viewProject: string
+    cardCta: string
     items: { name: string; category: string; location: string }[]
   }
   services: {
     eyebrow: string
     heading: string
-    supporting: string
-    panelTagline: string
     description: string
     items: { title: string; description: string }[]
   }
   process: {
     eyebrow: string
     heading: string
-    cta: string
+    supporting: string
+    stepLabel: string
     stages: { title: string; description: string }[]
   }
   ctaBanner: {
@@ -86,14 +87,6 @@ export interface TranslationShape {
     rights: string
     terms: string
     privacy: string
-    newsletterEyebrow: string
-    newsletterHeading: string
-    newsletterText: string
-    emailPlaceholder: string
-    emailLabel: string
-    subscribe: string
-    emailInvalid: string
-    newsletterUnavailable: string
     backToTop: string
   }
 }
@@ -110,13 +103,15 @@ export const translations: Record<Language, TranslationShape> = {
     cta: {
       startProject: 'ابدأ مشروعك',
       viewWork: 'مشاهدة أعمالنا',
-      exploreMore: 'استكشف المزيد',
     },
     hero: {
-      eyebrow: 'INTERIOR DESIGN & FIT-OUT',
-      headlineLine1: 'نصمم تجربة المكان',
-      headlineLine2: 'وننفذها حتى التسليم',
-      supporting: 'للمقاهي والمطاعم والمتاجر والمساحات التجارية',
+      eyebrow: 'فن التصميم • دقة التنفيذ',
+      headlineLine1: 'نصنع مساحات',
+      headlineLine2: 'تترك انطباعًا لا يُنسى',
+      supporting:
+        'من الفكرة الأولى إلى تسليم المفتاح، نصمّم وننفّذ مساحات تجارية وضيافية تجمع بين جمال التفاصيل، وكفاءة التشغيل، وهوية تعكس طموح علامتك.',
+      primaryCta: 'ابدأ مشروعك معنا',
+      secondaryCta: 'اكتشف أعمالنا',
       slideCounter: '01 / 03',
       preview: {
         name: 'قهوة إيرا',
@@ -138,12 +133,12 @@ export const translations: Record<Language, TranslationShape> = {
       },
     },
     about: {
-      eyebrow: 'عن أوشن ستوديو',
+      eyebrow: 'من نحن',
       headingLine1: 'من الفكرة',
-      headingLine2: 'حتى تسليم المفتاح',
-      body: 'أوشن ستوديو شركة سعودية متخصصة في التصميم الداخلي والتنفيذ للمقاهي والمطاعم والمساحات التجارية. نحوّل الأفكار إلى مساحات تجمع بين الجمال والوظيفة، من التصور الإبداعي حتى التسليم.',
+      headingLine2: 'إلى مساحة تنبض بالحياة',
+      body: 'في أوشن ستوديو، نؤمن أن نجاح المكان يبدأ بما هو أبعد من جمال التصميم. منذ عام 2019، نحول رؤى أصحاب المشاريع إلى مساحات متكاملة تجمع بين الهوية المميزة، والتفاصيل المدروسة، وكفاءة التشغيل، من خلال منظومة متكاملة من التصميم الداخلي والتنفيذ حتى تسليم المفتاح.',
       cta: 'اكتشف قصتنا',
-      detailCaption: 'تفاصيل تصنع التجربة',
+      signature: '«لكل مساحة حكاية، ولكل تفصيل أثر.»',
       info: {
         year: { value: '2019', label: 'سنة الانطلاقة' },
         scope: { value: 'تصميم وتنفيذ', label: 'نطاق متكامل' },
@@ -156,10 +151,10 @@ export const translations: Record<Language, TranslationShape> = {
       supporting: 'كل رقم يمثل قصة نجاح، وشراكة مبنية على الثقة، ورحلة من الإبداع حتى التنفيذ.',
       cta: 'اكتشف المزيد',
       items: [
-        { value: '+250', label: 'مشروع منفذ' },
-        { value: '+100', label: 'عميل وثق بنا' },
-        { value: '6', label: 'خدمات متكاملة' },
-        { value: '+7', label: 'سنوات خبرة' },
+        { value: '+7', label: 'سنوات خبرة', description: 'في تصميم وتنفيذ المساحات' },
+        { value: '+7', label: 'علامات تجارية', description: 'وثقت بنا في مشاريعها' },
+        { value: '6', label: 'خدمات متكاملة', description: 'تحت سقف واحد' },
+        { value: '3', label: 'قطاعات', description: 'ضيافة · تجزئة · سكني' },
       ],
     },
     projects: {
@@ -170,17 +165,16 @@ export const translations: Record<Language, TranslationShape> = {
         'كل مشروع نعمل عليه هو قصة جديدة من الإبداع، تجمع فيها بين التصميم المبتكر والتنفيذ المتقن لنقدم مساحات استثنائية تعكس هوية عملائنا.',
       viewAll: 'عرض جميع المشاريع',
       viewProject: 'عرض المشروع',
+      cardCta: 'عرض المشروع',
       items: [
-        { name: 'ERA Coffee', category: 'مطاعم ومقاهي', location: 'الرياض، المملكة العربية السعودية' },
-        { name: 'Qirat', category: 'مطاعم ومقاهي', location: 'الرياض، المملكة العربية السعودية' },
-        { name: 'Brooz Real Estate', category: 'مكاتب ومساحات تجارية', location: 'الرياض، المملكة العربية السعودية' },
+        { name: 'ERA Coffee', category: 'مقهى مختص', location: 'الرياض' },
+        { name: 'Qirat', category: 'العطور', location: 'الرياض' },
+        { name: 'Brwaz Real Estate', category: 'التطوير العقاري', location: 'الرياض' },
       ],
     },
     services: {
-      eyebrow: 'OUR SERVICES',
-      heading: 'خدماتنا',
-      supporting: 'حلول متكاملة للمكان',
-      panelTagline: 'SPACES THAT INSPIRE',
+      eyebrow: 'خدماتنا',
+      heading: 'حلول متكاملة للمكان',
       description:
         'نقدم مجموعة متكاملة من الخدمات التي تغطي جميع مراحل المشروع، من الفكرة وحتى التسليم، لنحوّل رؤيتك إلى مساحات استثنائية تعكس هويتك.',
       items: [
@@ -211,9 +205,10 @@ export const translations: Record<Language, TranslationShape> = {
       ],
     },
     process: {
-      eyebrow: 'OUR PROCESS',
+      eyebrow: 'منهجية العمل',
       heading: 'من الفكرة إلى التسليم',
-      cta: 'تعرف على منهجية العمل',
+      supporting: 'خمس مراحل واضحة تقود مشروعك بثقة، من أول جلسة حتى تسليم المفتاح.',
+      stepLabel: 'المرحلة',
       stages: [
         { title: 'فهم المشروع', description: 'جلسة استكشاف لتحليل احتياجاتك وأهداف المساحة.' },
         { title: 'التصميم والتصور', description: 'مفاهيم وتصاميم أولية تترجم الفكرة بصرياً.' },
@@ -236,14 +231,6 @@ export const translations: Record<Language, TranslationShape> = {
       rights: 'جميع الحقوق محفوظة',
       terms: 'الشروط والأحكام',
       privacy: 'سياسة الخصوصية',
-      newsletterEyebrow: "LET'S STAY IN TOUCH",
-      newsletterHeading: 'ابقَ على تواصل معنا',
-      newsletterText: 'اشترك ليصلك آخر مشاريعنا وأفكار التصميم والمستجدات من OSHAN STUDIO.',
-      emailPlaceholder: 'أدخل بريدك الإلكتروني',
-      emailLabel: 'البريد الإلكتروني',
-      subscribe: 'اشترك',
-      emailInvalid: 'يرجى إدخال بريد إلكتروني صحيح.',
-      newsletterUnavailable: 'خدمة الاشتراك غير مفعّلة بعد. شكرًا لاهتمامك.',
       backToTop: 'العودة إلى الأعلى',
     },
   },
@@ -258,13 +245,15 @@ export const translations: Record<Language, TranslationShape> = {
     cta: {
       startProject: 'Start Your Project',
       viewWork: 'View Our Work',
-      exploreMore: 'Explore More',
     },
     hero: {
-      eyebrow: 'INTERIOR DESIGN & FIT-OUT',
-      headlineLine1: 'We design the experience',
-      headlineLine2: 'and build it to completion',
-      supporting: 'For cafés, restaurants, retail & commercial spaces',
+      eyebrow: 'The Art of Design • The Precision of Execution',
+      headlineLine1: 'We create spaces',
+      headlineLine2: 'that leave a lasting impression',
+      supporting:
+        'From the first idea to key handover, we design and build commercial and hospitality spaces that unite beautiful detail, operational efficiency, and an identity that reflects your brand’s ambition.',
+      primaryCta: 'Start Your Project With Us',
+      secondaryCta: 'Explore Our Work',
       slideCounter: '01 / 03',
       preview: {
         name: 'Era Coffee',
@@ -286,12 +275,12 @@ export const translations: Record<Language, TranslationShape> = {
       },
     },
     about: {
-      eyebrow: 'ABOUT OSHAN STUDIO',
-      headingLine1: 'From the Idea',
-      headingLine2: 'to Key Handover',
-      body: 'OSHAN STUDIO is a Saudi interior design and fit-out studio specializing in cafés, restaurants, and commercial spaces. We turn ideas into places that balance beauty and function, from the initial concept through delivery.',
+      eyebrow: 'ABOUT US',
+      headingLine1: 'From an Idea',
+      headingLine2: 'to a Space That Comes Alive',
+      body: 'At OSHAN STUDIO, we believe a space succeeds on more than beautiful design. Since 2019, we have turned business owners’ visions into complete spaces that bring together a distinct identity, considered detail, and operational efficiency, through an integrated system of interior design and fit-out, all the way to key handover.',
       cta: 'Discover Our Story',
-      detailCaption: 'Details That Shape The Experience',
+      signature: '“Every space has a story, and every detail leaves its mark.”',
       info: {
         year: { value: '2019', label: 'Founded' },
         scope: { value: 'Design & Fit-Out', label: 'Integrated Scope' },
@@ -304,10 +293,10 @@ export const translations: Record<Language, TranslationShape> = {
       supporting: 'Every number represents a success story, a partnership built on trust, and a journey from concept to execution.',
       cta: 'Discover More',
       items: [
-        { value: '+250', label: 'Projects Delivered' },
-        { value: '+100', label: 'Clients Who Trusted Us' },
-        { value: '6', label: 'Integrated Services' },
-        { value: '+7', label: 'Years of Experience' },
+        { value: '+7', label: 'Years of Experience', description: 'Designing and building spaces' },
+        { value: '+7', label: 'Brands', description: 'Trusted us with their projects' },
+        { value: '6', label: 'Integrated Services', description: 'All under one roof' },
+        { value: '3', label: 'Sectors', description: 'Hospitality · Retail · Residential' },
       ],
     },
     projects: {
@@ -318,17 +307,16 @@ export const translations: Record<Language, TranslationShape> = {
         'Every project we take on is a new story of creativity, combining innovative design with meticulous execution to deliver exceptional spaces that reflect our clients’ identity.',
       viewAll: 'View All Projects',
       viewProject: 'View project',
+      cardCta: 'View Project',
       items: [
-        { name: 'ERA Coffee', category: 'Restaurants & Cafés', location: 'Riyadh, Saudi Arabia' },
-        { name: 'Qirat', category: 'Restaurants & Cafés', location: 'Riyadh, Saudi Arabia' },
-        { name: 'Brooz Real Estate', category: 'Offices & Commercial Spaces', location: 'Riyadh, Saudi Arabia' },
+        { name: 'ERA Coffee', category: 'Specialty Coffee', location: 'Riyadh' },
+        { name: 'Qirat', category: 'Perfumes', location: 'Riyadh' },
+        { name: 'Brwaz Real Estate', category: 'Real Estate Development', location: 'Riyadh' },
       ],
     },
     services: {
       eyebrow: 'OUR SERVICES',
-      heading: 'Our Services',
-      supporting: 'Integrated solutions for every space',
-      panelTagline: 'SPACES THAT INSPIRE',
+      heading: 'Integrated solutions for every space',
       description:
         'We offer an integrated range of services covering every stage of the project, from concept to handover, turning your vision into exceptional spaces that reflect your identity.',
       items: [
@@ -361,7 +349,8 @@ export const translations: Record<Language, TranslationShape> = {
     process: {
       eyebrow: 'OUR PROCESS',
       heading: 'From Concept to Handover',
-      cta: 'Learn About Our Process',
+      supporting: 'Five clear stages that carry your project with confidence, from the first session to key handover.',
+      stepLabel: 'STEP',
       stages: [
         { title: 'Understanding the Project', description: 'A discovery session to analyze your needs and the space’s goals.' },
         { title: 'Design & Concept', description: 'Early concepts and designs that translate the idea visually.' },
@@ -384,14 +373,6 @@ export const translations: Record<Language, TranslationShape> = {
       rights: 'All Rights Reserved',
       terms: 'Terms & Conditions',
       privacy: 'Privacy Policy',
-      newsletterEyebrow: "LET'S STAY IN TOUCH",
-      newsletterHeading: 'Stay in Touch',
-      newsletterText: 'Subscribe to receive our latest projects, design ideas, and updates from OSHAN STUDIO.',
-      emailPlaceholder: 'Enter your email address',
-      emailLabel: 'Email address',
-      subscribe: 'Subscribe',
-      emailInvalid: 'Please enter a valid email address.',
-      newsletterUnavailable: 'Newsletter signup is not live yet. Thank you for your interest.',
       backToTop: 'Back to top',
     },
   },
